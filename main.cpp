@@ -32,11 +32,14 @@ void BubbleSort(int A[],int n)
                 swapped=true;
             }
         }
-        
         if(swapped==false)
             break;
-        
     }
+}
+
+void InsertionSort(int A[],int n)
+{
+
 
 }
 
