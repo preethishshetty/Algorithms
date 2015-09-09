@@ -153,7 +153,62 @@ void MergeSort(int A[],int left,int right)
     }
 }
 
-//=======SORT ALGORITHMS=======
+//=======Mods to SORT ALGORITHMS=======
+
+/* Counting Inversions :
+ - Logic is that for every element j from Mid+1->Right if the element
+   is lesser than an element i from Left->Mid then all elements after
+   element i are greater than element j ( mid - i + 1 )
+*/
+int countInvMerge(int A[],int left,int mid,int right)
+{
+    int B[10];
+    int count=0;
+    
+    for(int i=left;i<=right;i++)
+        B[i]=A[i];
+    
+    //Indices for A
+    int i=left;
+    int j=mid+1;
+    //Index for B
+    int k=left;
+    
+    while(i<=mid && j<=right)
+    {
+        if(B[i]<B[j])
+        {
+            A[k++]=B[i++];
+        }
+        else
+        {
+            A[k++]=B[j++];
+            count = count + mid-i+1;
+        }
+    }
+    
+    while(i<=mid)
+        A[k++]=B[i++];
+    while(j<=right)
+        A[k++]=B[j++];
+    
+    return count;
+}
+
+int countInvMergeSort(int A[],int left,int right)
+{   int x=0,y=0,z=0;
+    
+    if(left<right)
+    {
+        int mid=(left+right)/2;
+        x=countInvMergeSort(A,left,mid);
+        y=countInvMergeSort(A,mid+1,right);
+        z=countInvMerge(A,left,mid,right);
+    }
+    
+    return x+y+z;
+}
+
 
 int main(int argc, const char * argv[]) {
     //Initializations
@@ -176,8 +231,11 @@ int main(int argc, const char * argv[]) {
     //cout<<"\nSelecttion Sort : ";
     //SelectionSort(A,10);
     
-    cout<<"\nMerge Sort : ";
-    MergeSort(A,0,9);
+    //cout<<"\nMerge Sort : ";
+    //MergeSort(A,0,9);
+    
+    cout<<"\nCount Inversions : ";
+    cout<<countInvMergeSort(A,0,9);
     
     cout<<"\nAfter Sort -> :";
     for(i=0;i<10;i++)
