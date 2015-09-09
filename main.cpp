@@ -39,6 +39,7 @@ void BubbleSort(int A[],int n)
 
 void InsertionSort(int A[],int n)
 {
+    int i=0;
 
 
 }
