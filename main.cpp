@@ -64,6 +64,28 @@ void InsertionSort(int A[],int n)
     }
 }
 
+/*Selection Sort
+ - Time Complexity : O(n^2)
+ - Space Complexity : Aux O(1)
+ - Use : Useful when memory swaps are expensive as it makes at most N swaps
+*/
+
+void SelectionSort(int A[],int n)
+{
+    int i=0,j=0,min=0,temp=0;
+    
+    for(i=0;i<n;i++)
+    {   min=i;
+        for(j=i;j<n;j++)
+        {
+            if(A[j]<A[min])
+                min=j;
+        }
+        temp=A[min];
+        A[min]=A[i];
+        A[i]=temp;
+    }
+}
 
 int main(int argc, const char * argv[]) {
     //Initializations
@@ -80,9 +102,12 @@ int main(int argc, const char * argv[]) {
     //cout<<"Bubble Sort : ";
     //BubbleSort(A,10);
     
+    //cout<<"\nInsertion Sort : ";
+    //InsertionSort(A,10);
+    
     cout<<"\nInsertion Sort : ";
-    InsertionSort(A,10);
-                  
+    SelectionSort(A,10);
+    
     cout<<"\nAfter Sort -> :";
     for(i=0;i<10;i++)
         cout<<A[i]<<" ";
