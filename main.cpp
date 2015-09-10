@@ -153,6 +153,79 @@ void MergeSort(int A[],int left,int right)
     }
 }
 
+
+/* Heap Sort
+   Time Complexity :
+    = Heapify : O(logn)
+    = BuildHeap : O(n)
+    = Total : O(nlogn)
+ 
+    -In place alogrithm
+*/
+
+struct MaxHeap
+{
+    int size;
+    int *array;
+};
+
+void swap(int *x,int *y)
+{
+    int temp=*x;
+    *x=*y;
+    *y=temp;
+}
+
+//Performs Heapify. Finds if any child is greater and if so swaps and heapifies the swapped node
+void maxHeapify(struct MaxHeap *maxHeap,int index)
+{
+    int maxVal=index;
+    int left=index*2+1;
+    int right=index*2+2;
+    
+    if(left<maxHeap->size && maxHeap->array[left] > maxHeap->array[maxVal])
+        maxVal=left;
+    
+    if(right<maxHeap->size && maxHeap->array[right] > maxHeap->array[maxVal])
+        maxVal=right;
+    
+    if(maxVal!=index)
+    {
+        swap(&maxHeap->array[maxVal],&maxHeap->array[index]);
+        maxHeapify(maxHeap,maxVal);
+    }
+    
+}
+
+//Builds maxHeap from input. Performs heapify from last parent upwards
+struct MaxHeap* buildHeap(int *array,int size)
+{
+    struct MaxHeap *maxHeap = new struct MaxHeap[sizeof(struct MaxHeap)];
+    maxHeap->size=size;
+    maxHeap->array=array;
+    
+    //Make the input array into a Max Heap (start from last parent node)
+    for(int i=(maxHeap->size-2)/2;i>=0;i--)
+        maxHeapify(maxHeap,i);
+    
+    return maxHeap;
+}
+
+//Builds Heap and swaps out largest element with the last element and heapifies again
+void HeapSort(int *array,int size)
+{
+    struct MaxHeap *maxHeap = buildHeap(array,size);
+    
+    while(maxHeap->size>1)
+    {
+        swap(&maxHeap->array[0],&maxHeap->array[maxHeap->size-1]);
+        maxHeap->size--;
+        
+        maxHeapify(maxHeap,0);
+    }
+}
+
+
 //=======Mods to SORT ALGORITHMS=======
 
 /* Counting Inversions :
@@ -210,6 +283,9 @@ int countInvMergeSort(int A[],int left,int right)
 }
 
 
+
+
+//========MAIN FUNCTION========
 int main(int argc, const char * argv[]) {
     //Initializations
     int A[]={5,12,3,6,2,61,1,45,4,24};      //Count == 10
@@ -234,8 +310,11 @@ int main(int argc, const char * argv[]) {
     //cout<<"\nMerge Sort : ";
     //MergeSort(A,0,9);
     
-    cout<<"\nCount Inversions : ";
-    cout<<countInvMergeSort(A,0,9);
+    //cout<<"\nCount Inversions : ";
+    //cout<<countInvMergeSort(A,0,9);
+    
+    cout<<"\nHeap Sort : ";
+    HeapSort(A,10);
     
     cout<<"\nAfter Sort -> :";
     for(i=0;i<10;i++)
