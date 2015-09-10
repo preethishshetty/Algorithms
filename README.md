@@ -7,6 +7,7 @@ Algorithms Implemented :
 - Selection Sort
 - Insertion Sort
 - Merge Sort
+- Heap Sort
 
 
 - Counting Inversion using Merge Sort
