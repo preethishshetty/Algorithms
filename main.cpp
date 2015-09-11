@@ -6,6 +6,7 @@
 //
 
 #include <iostream>
+#include "AlgoQuestions.h"
 using namespace std;
 
 
@@ -361,11 +362,9 @@ int main(int argc, const char * argv[]) {
     int i=0;
     
     //Algorithms
-    /*Bubble Sort*/
-    cout<<"Before Sort -> :";
-    for(i=0;i<10;i++)
-        cout<<A[i]<<" ";
-    
+    //cout<<"Before Sort -> :";
+    //for(i=0;i<10;i++)
+      //  cout<<A[i]<<" ";
     
     //cout<<"Bubble Sort : ";
     //BubbleSort(A,10);
@@ -385,14 +384,20 @@ int main(int argc, const char * argv[]) {
     //cout<<"\nHeap Sort : ";
     //HeapSort(A,10);
     
-    cout<<"\nQuick Sort : ";
-    quickSort(A,0,9);
+    //cout<<"\nQuick Sort : ";
+    //quickSort(A,0,9);
     
     
-    cout<<"\nAfter Sort -> :";
-    for(i=0;i<10;i++)
-        cout<<A[i]<<" ";
+    //cout<<"\nAfter Sort -> :";
+    //for(i=0;i<10;i++)
+      //  cout<<A[i]<<" ";
     
+    cout<<"Finding the smallest element : ";
+    int B[]={3,4,5,1,2};
+    
+    for(i=0;i<5;i++)
+        cout<<B[i]<<" ";
+    cout<<"\nMinumum Value : "<<findMin(B,0,4);
     
     return 0;
 }
