@@ -226,6 +226,75 @@ void HeapSort(int *array,int size)
 }
 
 
+/* Quick Sort :
+    Time Complexity :
+    -Best Case : (Always picks middle elemenet  : O(nlogn)  << 2T(n/2)+O(n) >>
+    -Worst Case : (Already sorted, picks greatest/smallest) : O(n^2) 
+    -Average Case : O(nlogn) 
+ 
+ Use : 
+ - Faster in practice than Merge Sort
+ - Merge is used for larger data sets and external sorting
+ 
+*/
+int partition(int *array,int left,int right)
+{
+    //First element is selected as pivot
+    int pivot=array[left];
+    int i=left;
+    int j=right;
+    
+    while(i<j)
+    {
+        while(array[i]<=pivot && i<=right)
+            i++;
+    
+        while(array[j]>pivot && j>0)
+            j--;
+        
+        if(i>=j)
+            break;
+        
+        if(i<j)
+        {  swap(&array[i],&array[j]);
+            i++; j--;
+        }
+    }
+    swap(&array[j],&array[left]);
+    return j;
+}
+
+/* Code from Coreman : 
+ int partition(int *array,int left, int right)
+ {
+    int pivot=array[last];
+    int i=left-1;
+ 
+    for(int j=left;j<=right-1;j++)
+    {
+        if(array[j]<=pivot)
+        { i++;
+          swap(&array[i],&array[last]);
+        }
+    }
+ 
+    swap(&array[i+1],&array[last];
+    return (i+1);
+ }
+*/
+
+void quickSort(int *array,int left,int right)
+{
+    if(left<right)
+    {
+        int p = partition(array,left,right);
+        quickSort(array,left,p-1);
+        quickSort(array,p+1,right);
+    }
+
+}
+
+
 //=======Mods to SORT ALGORITHMS=======
 
 /* Counting Inversions :
@@ -288,7 +357,7 @@ int countInvMergeSort(int A[],int left,int right)
 //========MAIN FUNCTION========
 int main(int argc, const char * argv[]) {
     //Initializations
-    int A[]={5,12,3,6,2,61,1,45,4,24};      //Count == 10
+    int A[]={5,12,3,6,2,61,1,45,4,10};      //Count == 10
     int i=0;
     
     //Algorithms
@@ -313,8 +382,12 @@ int main(int argc, const char * argv[]) {
     //cout<<"\nCount Inversions : ";
     //cout<<countInvMergeSort(A,0,9);
     
-    cout<<"\nHeap Sort : ";
-    HeapSort(A,10);
+    //cout<<"\nHeap Sort : ";
+    //HeapSort(A,10);
+    
+    cout<<"\nQuick Sort : ";
+    quickSort(A,0,9);
+    
     
     cout<<"\nAfter Sort -> :";
     for(i=0;i<10;i++)
