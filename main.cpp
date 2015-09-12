@@ -387,17 +387,13 @@ int main(int argc, const char * argv[]) {
     //cout<<"\nQuick Sort : ";
     //quickSort(A,0,9);
     
-    
     //cout<<"\nAfter Sort -> :";
     //for(i=0;i<10;i++)
       //  cout<<A[i]<<" ";
     
-    cout<<"Finding the smallest element : ";
-    int B[]={3,4,5,1,2};
+    //findMinDriver();
     
-    for(i=0;i<5;i++)
-        cout<<B[i]<<" ";
-    cout<<"\nMinumum Value : "<<findMin(B,0,4);
+    //findPeakDriver();
     
     return 0;
 }
