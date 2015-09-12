@@ -395,5 +395,7 @@ int main(int argc, const char * argv[]) {
     
     //findPeakDriver();
     
+    findFixedPointDriver();
+    
     return 0;
 }

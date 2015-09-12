@@ -52,6 +52,7 @@ void findMinDriver()
 
 /*Q: Find peak element in an array ( not smaller than its neighbors => greater than equal to )
  == Haven't boundary cased it.
+ == Time : O(logn)
 */
 
 int findPeakRecursive(int *A,int left,int right)
@@ -95,4 +96,35 @@ void findPeakDriver()
     
 }
 
+/*Q: Find Fixed Point ( A[i]==i ) in a sorted array
+ ==Time Complexity : O(logn) 
+ ==Paradigm : Divide and Conquer
+*/
+int findFixedPoint(int *A,int left,int right)
+{
+    if(left<right)
+    {
+        int mid = (left+right)/2;
+        if(A[mid]==mid)
+            return mid;
+        
+        if(A[mid]<mid)
+            return findFixedPoint(A,mid+1,right);
+        else
+            return findFixedPoint(A,left,mid-1);
 
+    }
+
+    return -1;
+}
+
+
+void findFixedPointDriver()
+{
+    int A[]={-10,1,1,4,6,9,21};
+    cout<<"Elements are : ";
+    for(int i=0;i<7;i++)
+        cout<<A[i]<<" ";
+    cout<<"\nFixed Point Element is : "<<findFixedPoint(A,0,6);
+    
+}
