@@ -121,10 +121,84 @@ int findFixedPoint(int *A,int left,int right)
 
 void findFixedPointDriver()
 {
-    int A[]={-10,1,1,4,6,9,21};
+    int A[]={-10,0,1,3,6,9,21};
     cout<<"Elements are : ";
     for(int i=0;i<7;i++)
         cout<<A[i]<<" ";
     cout<<"\nFixed Point Element is : "<<findFixedPoint(A,0,6);
     
+}
+
+
+/* Q: Length of minimum subarray that must be sorted to sort entire array
+ */
+
+int minSubArray(int *A,int size)
+{
+
+    int i=0;
+    int s=-1,e=-1;
+    for(i=0;i<size-1;i++)
+    {
+        if(A[i]>A[i+1])
+        {
+            s=i;
+            break;
+        }
+    }
+
+    if(i==size)
+        return 0;
+    
+    for(i=size-1;i>0;i--)
+    {
+        if(A[i]<A[i-1])
+        {
+            e=i;
+            break;
+        }
+    }
+    
+    int min=s;
+    int max=e;
+    
+    for(i=s+1;i<e;i++)
+    {
+        if(A[i]<A[min])
+            min=i;
+        if(A[i]>A[max])
+            max=i;
+    }
+    
+    for(i=0;i<s;i++)
+    {
+        if(A[i]>A[min])
+        {
+            s=i;
+            break;
+        }
+    }
+    
+    for(i=size-1;i>e;i--)
+    {
+        if(A[i]<A[max])
+        {
+            e=i;
+            break;
+        }
+    }
+
+    cout<<"\n=Start Index : "<<s<<"-> "<<A[s];
+    cout<<"\n=End Index : "<<e<<" -> "<<A[e];
+    return e-s+1;
+}
+
+void minSubArrayDriver()
+{
+    int A[]={10,12,20,30,25,40,32,31,35,50,60,70};
+    cout<<"Elements are : ";
+    for(int i=0;i<12;i++)
+        cout<<A[i]<<" ";
+    int len =minSubArray(A,12);
+    cout<<"\nLength : "<<len;
 }

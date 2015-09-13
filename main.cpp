@@ -358,7 +358,7 @@ int countInvMergeSort(int A[],int left,int right)
 //========MAIN FUNCTION========
 int main(int argc, const char * argv[]) {
     //Initializations
-    int A[]={5,12,3,6,2,61,1,45,4,10};      //Count == 10
+    int A[]={5,12,3,6,12,61,1,45,4,10};      //Count == 10
     int i=0;
     
     //Algorithms
@@ -395,7 +395,9 @@ int main(int argc, const char * argv[]) {
     
     //findPeakDriver();
     
-    findFixedPointDriver();
+    //findFixedPointDriver();
+    
+    minSubArrayDriver();
     
     return 0;
 }
