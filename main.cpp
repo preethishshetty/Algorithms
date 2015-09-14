@@ -67,6 +67,26 @@ void InsertionSort(int A[],int n)
     }
 }
 
+void InsertionSort(float *A,int n)
+{
+    int i=0,j=0;
+    float key=0;
+    
+    for(i=1;i<n;i++)
+    {
+        key=A[i];
+        for(j=i-1;j>=0;j--)
+        {
+            if(A[j]>key)
+                A[j+1]=A[j];
+            else
+                break;
+        }
+        
+        A[j+1]=key;
+    }
+}
+
 /*Selection Sort
  - Time Complexity : O(n^2)
  - Space Complexity : Aux O(1)
@@ -238,6 +258,7 @@ void HeapSort(int *array,int size)
  - Merge is used for larger data sets and external sorting
  
 */
+
 int partition(int *array,int left,int right)
 {
     //First element is selected as pivot
@@ -294,6 +315,79 @@ void quickSort(int *array,int left,int right)
     }
 
 }
+
+
+/* Bucket Sort
+    Time Complexity :
+    -O(n) - Insert into the buckets
+    -O(n) - Insertion sort ( uniformly distributed )
+*/
+
+void BucketSort(float *A,int n)
+{
+    float B[n][n];
+    int i=0,j=0;
+    for(i=0;i<n;i++)
+        for(j=0;j<n;j++)
+            B[i][j]=0;
+    
+    //Inserting element to list
+    for(i=0;i<n;i++)
+    {
+        int index=n*A[i];
+        j=0;
+        while(B[index][j]!=0)
+            j++;
+        B[index][j]=A[i];
+    }
+    
+    //Printing List
+    for(i=0;i<n;i++)
+    {  cout<<"\n i="<<i<<" : ";
+       for(j=0;j<n;j++)
+           cout<<B[i][j]<<" ";
+    }
+    
+    //Sorting non empty lists
+    for(i=0;i<n;i++)
+    {
+        j=0;
+        while(B[i][j]!=0)
+            j++;
+        
+        if(j==0)
+            continue;
+        
+        InsertionSort(B[i],j);
+    }
+    
+    //Printing List after Insertion Sort
+    cout<<"\n\nAfter Sort";
+    for(i=0;i<n;i++)
+    {  cout<<"\n i="<<i<<" : ";
+        for(j=0;j<n;j++)
+            cout<<B[i][j]<<" ";
+    }
+    
+    //Concatenating
+    for(int x=0,i=0;i<n;i++)
+    {
+        j=0;
+        while(B[i][j]!=0)
+        {
+            A[x++]=B[i][j];
+            j++;
+        }
+    }
+    
+    cout<<"\n\nFinal Result : ";
+    for(i=0;i<n;i++)
+        cout<<A[i]<<" ";
+    
+}
+
+
+
 
 
 //=======Mods to SORT ALGORITHMS=======
@@ -387,6 +481,10 @@ int main(int argc, const char * argv[]) {
     //cout<<"\nQuick Sort : ";
     //quickSort(A,0,9);
     
+    float C[10]={0.12,0.72,0.19,0.14,0.62,0.71,0.69,0.34,0.32,0.42};
+    cout<<"\nBucket Sort : ";
+    BucketSort(C,10);
+    
     //cout<<"\nAfter Sort -> :";
     //for(i=0;i<10;i++)
       //  cout<<A[i]<<" ";
@@ -397,7 +495,7 @@ int main(int argc, const char * argv[]) {
     
     //findFixedPointDriver();
     
-    minSubArrayDriver();
+    //minSubArrayDriver();
     
     return 0;
 }
