@@ -584,7 +584,11 @@ int main(int argc, const char * argv[]) {
     
     //minSubArrayDriver();
     
-    powDriver();
+    //powDriver();
+    
+    MedianSortedArrayDriver();
+    
+    //cout<<"Median : "<<median(A,10);
     
     return 0;
 }

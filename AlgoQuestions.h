@@ -239,3 +239,111 @@ void powDriver()
     cout<<"Power of ("<<x<<","<<y<<") = "<<pow(x,y);
     
 }
+
+
+
+/* Q :Median of sorted Arrays :
+    =Method 1 :
+    - Go till count<=n and merge the two arrays
+    - At this point either i==n or j==n or a mix. Find appropriate m & n and take average
+ 
+    =Method 2 :
+    - Find medians of the two arrays; compare them and accordingly divide the input array into smaller chunks
+ */
+
+float median(int *A,int n)
+{
+    if(n%2==0)
+        return ((float)A[n/2]+A[n/2-1])/2;
+    else
+        return A[n/2];
+}
+
+float MedianSortedArrayMethod1(int *A,int *B,int n)
+{
+    int i=0;
+    int j=0;
+    int prev=-1;
+    int cur=-1;
+    
+    for(int count=0;count<n;count++)
+    {
+        if(i==n)
+        {   prev=cur;
+            cur=B[0];
+            break;
+        }
+    
+        if(j==n)
+        {   prev=cur;
+            cur=A[0];
+            break;
+        }
+        
+        if(A[i]<B[j])
+        {
+            prev=cur;
+            cur=A[i];
+            i++;
+        }
+        
+        if(A[i]>B[j])
+        {
+            prev=cur;
+            cur=B[j];
+            j++;
+        }
+        
+    }
+    
+    return ((float)prev+cur)/2;
+}
+
+float MedianSortedArrayMethod2(int *A,int *B,int n)
+{
+    float m1,m2;
+    
+    if(n<=0)
+        return -1;
+    
+    if(n==1)
+        return ((float)A[0]+B[0])/2;
+    
+    if(n==2)
+        return ((float)max(A[0],B[0])+min(A[1],B[1]))/2;
+    
+    m1=median(A,n);
+    m2=median(B,n);
+    
+    if(m1==m2)
+        return m1;
+    
+    if(m1<m2)
+    {
+        if(n%2==0)
+            return MedianSortedArrayMethod2(A+n/2-1,B,n/2+1);
+        else
+            return MedianSortedArrayMethod2(A+n/2,B,n/2+1);
+    }
+    
+    if(m1>m2)
+    {
+        if(n%2==0)
+            return MedianSortedArrayMethod2(A,B+n/2-1,n/2+1);
+        else
+            return MedianSortedArrayMethod2(A,B+n/2,n/2+1);
+    }
+    
+    return -1;
+}
+
+void MedianSortedArrayDriver()
+{
+    int A[]={1,2,3,4,5};
+    int B[]={6,7,9,10,12};
+    
+    cout<<"Median is :"<<MedianSortedArrayMethod1(A,B,5);
+    
+    cout<<"\nMedian (Method 2) is : "<<MedianSortedArrayMethod2(A,B,5);
+}
+
