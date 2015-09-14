@@ -387,6 +387,46 @@ void BucketSort(float *A,int n)
 }
 
 
+/* Counting Sort :
+ Time Complexity : O(n+k) - n-> number of elements, k->range of the numbers
+ Aux Space : O(n+k)
+ 
+ Notes :
+ -Efficient when the range of the data is not significantly larger than the number of inputs
+ -NOT a comparison based sorting
+ -Linked List will be better implementation of the Algorithm
+ */
+
+void CountingSort(int *A,int size)
+{
+    cout<<"\nBefore Sort :";
+    for(int i=0;i<size;i++)
+        cout<<A[i]<<" ";
+    
+    int count[size];
+    int output[size];
+    for(int j=0;j<size;j++)
+        count[j]=0;
+    
+    for(int i=0;i<size;i++)
+        count[A[i]]=++count[A[i]];
+    
+    for(int i=1;i<size;i++)
+        count[i]=count[i-1]+count[i];
+    
+    for(int i=0;i<size;i++)
+    {
+        int index=count[A[i]];
+        count[A[i]]--;
+        
+        output[index-1]=A[i];
+    }
+    
+    cout<<"\n\nFinal Result :";
+    for(int i=0;i<size;i++)
+        cout<<output[i]<<" ";
+    
+}
 
 
 
@@ -456,9 +496,12 @@ int main(int argc, const char * argv[]) {
     int i=0;
     
     //Algorithms
-    //cout<<"Before Sort -> :";
-    //for(i=0;i<10;i++)
-      //  cout<<A[i]<<" ";
+    /*
+    cout<<"Before Sort -> :";
+    for(i=0;i<10;i++)
+        cout<<A[i]<<" ";
+    */
+    
     
     //cout<<"Bubble Sort : ";
     //BubbleSort(A,10);
@@ -481,13 +524,22 @@ int main(int argc, const char * argv[]) {
     //cout<<"\nQuick Sort : ";
     //quickSort(A,0,9);
     
-    float C[10]={0.12,0.72,0.19,0.14,0.62,0.71,0.69,0.34,0.32,0.42};
-    cout<<"\nBucket Sort : ";
-    BucketSort(C,10);
+    /*
+    cout<<"\nAfter Sort -> :";
+    for(i=0;i<10;i++)
+      cout<<A[i]<<" ";
+    */
     
-    //cout<<"\nAfter Sort -> :";
-    //for(i=0;i<10;i++)
-      //  cout<<A[i]<<" ";
+    /* == Algorithms with specifics in input values */
+    
+    //float C[10]={0.12,0.72,0.19,0.14,0.62,0.71,0.69,0.34,0.32,0.42};
+    //cout<<"\nBucket Sort : ";
+    //BucketSort(C,10);
+    
+    //cout<<"Counting Sort";
+    //int D[10]={1,4,1,2,5,3,2,4,8,6};
+    //CountingSort(D,10);
+    
     
     //findMinDriver();
     
