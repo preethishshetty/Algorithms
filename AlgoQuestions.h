@@ -202,3 +202,40 @@ void minSubArrayDriver()
     int len =minSubArray(A,12);
     cout<<"\nLength : "<<len;
 }
+
+
+/* == Divide and Conquer == */
+
+/* Q: Power(x,y) 
+    Time Complexity : O(logn)
+ */
+
+float pow(float x,int y)
+{
+    float temp;
+    if(y==0)
+        return 1;
+    
+    temp=pow(x,y/2);
+    
+    if(y%2==0)
+        return temp*temp;
+    else
+    {
+        if(y>0)
+            return x*temp*temp;
+        else
+            return (temp*temp)/x;
+    }
+
+
+}
+
+void powDriver()
+{
+    float x=2;
+    int y=5;
+    
+    cout<<"Power of ("<<x<<","<<y<<") = "<<pow(x,y);
+    
+}

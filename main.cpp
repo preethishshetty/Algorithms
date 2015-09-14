@@ -528,11 +528,11 @@ int main(int argc, const char * argv[]) {
     int i=0;
     
     //Algorithms
-    ///*
+    /*
     cout<<"Before Sort -> :";
     for(i=0;i<10;i++)
         cout<<A[i]<<" ";
-    //*/
+    */
     
     
     //cout<<"Bubble Sort : ";
@@ -556,14 +556,14 @@ int main(int argc, const char * argv[]) {
     //cout<<"\nQuick Sort : ";
     //quickSort(A,0,9);
     
-    cout<<"\nShell Sort : ";
-    ShellSort(A,10);
+    //cout<<"\nShell Sort : ";
+    //ShellSort(A,10);
     
-    ///*
+    /*
     cout<<"\nAfter Sort -> :";
     for(i=0;i<10;i++)
       cout<<A[i]<<" ";
-    //*/
+    */
     
     /* == Algorithms with specifics in input values */
     
@@ -583,6 +583,8 @@ int main(int argc, const char * argv[]) {
     //findFixedPointDriver();
     
     //minSubArrayDriver();
+    
+    powDriver();
     
     return 0;
 }
