@@ -67,6 +67,7 @@ void InsertionSort(int A[],int n)
     }
 }
 
+//Floating point compatible ( for bucket sort )
 void InsertionSort(float *A,int n)
 {
     int i=0,j=0;
@@ -429,6 +430,37 @@ void CountingSort(int *A,int size)
 }
 
 
+/* Shell Sort (geeksForGeeks)
+ Time Complexity : O(n^2)
+ */
+
+void ShellSort(int *A,int n)
+{
+    int i=0,j=0;
+    for(int gap=n/2;gap>0;gap/=2)
+    {
+        // Do a gapped insertion sort for this gap size.
+        // The first gap elements a[0..gap-1] are already in gapped order
+        // keep adding one more element until the entire array is
+        // gap sorted
+
+        for(i=gap;i<n;i++)
+        {
+            // add a[i] to the elements that have been gap sorted
+            // save a[i] in temp and make a hole at position i
+
+            int t=A[i];
+            
+            // shift earlier gap-sorted elements up until the correct
+            // location for a[i] is found
+
+            for(j=i;j>=gap && A[j-gap]>t;j-=gap)
+                A[j]=A[j-gap];
+            
+            A[j]=t;
+        }
+    }
+}
 
 //=======Mods to SORT ALGORITHMS=======
 
@@ -496,11 +528,11 @@ int main(int argc, const char * argv[]) {
     int i=0;
     
     //Algorithms
-    /*
+    ///*
     cout<<"Before Sort -> :";
     for(i=0;i<10;i++)
         cout<<A[i]<<" ";
-    */
+    //*/
     
     
     //cout<<"Bubble Sort : ";
@@ -524,11 +556,14 @@ int main(int argc, const char * argv[]) {
     //cout<<"\nQuick Sort : ";
     //quickSort(A,0,9);
     
-    /*
+    cout<<"\nShell Sort : ";
+    ShellSort(A,10);
+    
+    ///*
     cout<<"\nAfter Sort -> :";
     for(i=0;i<10;i++)
       cout<<A[i]<<" ";
-    */
+    //*/
     
     /* == Algorithms with specifics in input values */
     
