@@ -337,6 +337,32 @@ float MedianSortedArrayMethod2(int *A,int *B,int n)
     return -1;
 }
 
+float MedianSortedArrayMethod3(int *A,int *B,int left,int right,int n)
+{
+    int i,j;
+    //Reached end of array
+    if(left>right)
+        return MedianSortedArrayMethod3(B, A, 0, n-1,n);
+    
+    i=(left+right)/2;
+    j=n-1-i;
+    
+    if(A[i]>B[j] && (j==n-1 || A[i]<=B[j+1]))
+    {
+        //Here A[j] is one of the medians. The other one needs to be decided.
+        if(i==0 || B[j]>A[i-1])
+            return ((float)A[i]+B[j])/2;
+        else
+            return ((float)A[i]+A[i-1])/2;
+    }
+    else //A[i] greater than B[j] so check elements after A[i] & B
+        if(A[i]>B[j] && j!=n-1 && A[i] > B[j+1])
+            return MedianSortedArrayMethod3(A,B, left, i-1,n);
+    else    //A[i] smaller than B[j] so check elements before A[i]
+        return MedianSortedArrayMethod3(A,B,i+1,right,n);
+
+}
+
 void MedianSortedArrayDriver()
 {
     int A[]={1,2,3,4,5};
@@ -345,5 +371,7 @@ void MedianSortedArrayDriver()
     cout<<"Median is :"<<MedianSortedArrayMethod1(A,B,5);
     
     cout<<"\nMedian (Method 2) is : "<<MedianSortedArrayMethod2(A,B,5);
+    
+    cout<<"\nMedian (Method 3) is : "<<MedianSortedArrayMethod3(A,B,0,4,5);
 }
 
