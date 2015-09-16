@@ -387,7 +387,9 @@ int BinarySearchModed(int *A,int left,int right,int key)
 {
     if(left<right)
     {
-        int mid=(left+right)/2;
+        //int mid=(left+right)/2;
+        
+        int mid = left + (right-left)/2;
         
         if(A[mid]==key)
             return mid;
@@ -415,5 +417,77 @@ void BinarySearchModedDriver()
         cout<<A[i]<<" ";
     
     cout<<"\nIndex of Key is : "<<BinarySearchModed(A,0,6,key);
+}
+
+
+/* Q : K closest points in a sorted array 
+    =Binary Search : Time Complexity = O(logn)
+    =Search of indciecs : Time Complexity = O(k)
+ */
+
+int BinarySearch(int *A,int left,int right,int key)
+{
+    if(left<=right)
+    {
+        int mid = left+(right-left)/2;
+        
+        if(A[mid]==key)
+            return mid;
+        
+        if(A[mid]>key)
+            return BinarySearch(A,left,mid-1,key);
+        else
+            return BinarySearch(A,mid+1,right,key);
+    }
+
+    return -1;
+}
+
+void KClosestPoints(int *A, int k, int key,int size)
+{
+    //Binary Search to find the point
+    int index = BinarySearch(A,0,size-1,key);
+
+    int l=index-1;
+    int r=index+1;
+    int count=0;
+    
+    for(int i=0;i<k;i++)
+    {
+        if(l>0 && (key-A[l] < A[r]-key) && r<size)
+        {
+            cout<<"\nElement "<<++count<<" : "<<A[l--];
+            continue;
+        }
+        
+        if(l>0 && (key-A[l] > A[r]-key) && r<size)
+        {
+            cout<<"\nElement "<<++count<<" : "<<A[r++];
+            continue;
+        }
+        
+        if(l==0)
+        {
+            cout<<"\nElement "<<++count<<" : "<<A[r++];
+            continue;
+        }
+        
+        if(r==0)
+        {
+            cout<<"\nElement "<<++count<<" : "<<A[l--];
+            continue;
+        }
+    }
+}
+
+void KClosestPointsDriver()
+{
+    int A[] ={12,16,22,30,35,39,42,45,48,50,58};
+    int k = 4;
+    int key = 35;
+    int size = sizeof(A)/sizeof(int);
+
+    cout<<"The closests points are : ";
+    KClosestPoints(A,k,key,size);
 }
 

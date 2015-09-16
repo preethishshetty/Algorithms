@@ -590,7 +590,9 @@ int main(int argc, const char * argv[]) {
 
     //cout<<"Median : "<<median(A,10);
     
-    BinarySearchModedDriver();
+    //BinarySearchModedDriver();
+    
+    KClosestPointsDriver();
     
     return 0;
 }
