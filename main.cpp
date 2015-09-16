@@ -586,9 +586,11 @@ int main(int argc, const char * argv[]) {
     
     //powDriver();
     
-    MedianSortedArrayDriver();
-    
+    //MedianSortedArrayDriver();
+
     //cout<<"Median : "<<median(A,10);
+    
+    BinarySearchModedDriver();
     
     return 0;
 }

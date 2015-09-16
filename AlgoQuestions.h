@@ -259,6 +259,8 @@ float median(int *A,int n)
         return A[n/2];
 }
 
+
+// Time Complexity : O(n)
 float MedianSortedArrayMethod1(int *A,int *B,int n)
 {
     int i=0;
@@ -373,5 +375,45 @@ void MedianSortedArrayDriver()
     cout<<"\nMedian (Method 2) is : "<<MedianSortedArrayMethod2(A,B,5);
     
     cout<<"\nMedian (Method 3) is : "<<MedianSortedArrayMethod3(A,B,0,4,5);
+}
+
+
+
+/*Q : Key in sorted array ( but shifted either to +1 position or -1 position 
+ =Time Complexity : O(logn)
+ */
+
+int BinarySearchModed(int *A,int left,int right,int key)
+{
+    if(left<right)
+    {
+        int mid=(left+right)/2;
+        
+        if(A[mid]==key)
+            return mid;
+        if(mid-1>left && A[mid-1]==key)
+            return mid-1;
+        if(mid+1<right && A[mid+1]==key)
+            return mid+1;
+        
+        if(A[mid]<key)
+            return BinarySearchModed(A,mid+2,right,key);
+        else
+            return BinarySearchModed(A,left,mid-2,key);
+    
+    }
+
+    return -1;
+}
+
+void BinarySearchModedDriver()
+{
+    int A[] ={10, 3, 40, 20, 50, 80, 70};
+    int key=40;
+    
+    for(int i=0;i<7;i++)
+        cout<<A[i]<<" ";
+    
+    cout<<"\nIndex of Key is : "<<BinarySearchModed(A,0,6,key);
 }
 
