@@ -491,3 +491,76 @@ void KClosestPointsDriver()
     KClosestPoints(A,k,key,size);
 }
 
+
+/* Q : Sorting 0-n^2-1 in Linear time 
+  == Moded version of Radix Sort
+ 
+ Radix vs QuickSort 
+ - If we have log2 n bits for every digit - Radix > Quick
+ - Constant factors hidden in Radix are greater
+ - Quick sort uses cache more effectively
+ - Radix uses counting sort as a subroutine which uses aux space
+ */
+
+void countSortModed(int *A,int n,int exp)
+{
+    int count[n];
+    int output[n];
+    for(int i=0;i<n;i++)
+        count[i]=0;
+    
+    for(int i=0;i<n;i++)
+        count[(A[i]/exp)%n]++;
+    
+    for(int i=1;i<n;i++)
+        count[i]+=count[i-1];
+    
+    for(int i=n-1;i>=0;i--)
+    {
+        int index=count[(A[i]/exp)%n];
+        count[(A[i]/exp)%n]--;
+        
+        output[index-1]=A[i];
+    }
+    
+    for(int i=n-1;i>=0;i--)
+        A[i]=output[i];
+
+}
+
+
+void sortLinear(int *A,int size)
+{
+    countSortModed(A,size,1);
+    countSortModed(A,size,size);
+    
+    /* In actual Radix Sort 
+       =Time Complexity : O(d*(n+b)) where d=number of digits == logb(k) where k is the max number
+       = O(logb k*(b+n) ) 
+       = To get a linear time - make logb k = 1 which is true for b==k
+     int m = getMax(A,size);
+     
+     for(int exp=1;m/exp>0;exp*=10)
+        countSort(A,size,exp);
+    */
+}
+
+
+void RadixSortModedDriver()
+{
+    int A[] = { 13,2,5,14,20,7};
+    int size = sizeof(A)/sizeof(int);
+    cout<<"SIZE : "<<size;
+    
+    cout<<"\nBefore Sorting : ";
+    for(int i=0;i<size;i++)
+        cout<<A[i]<<" ";
+    
+    sortLinear(A,size);
+    
+    cout<<"\nThe sorted array is : ";
+    for(int i=0;i<size;i++)
+        cout<<A[i]<<" ";
+
+}
+

@@ -415,7 +415,7 @@ void CountingSort(int *A,int size)
     for(int i=1;i<size;i++)
         count[i]=count[i-1]+count[i];
     
-    for(int i=0;i<size;i++)
+    for(int i=size;i>=0;i--)
     {
         int index=count[A[i]];
         count[A[i]]--;
@@ -592,7 +592,9 @@ int main(int argc, const char * argv[]) {
     
     //BinarySearchModedDriver();
     
-    KClosestPointsDriver();
+    //KClosestPointsDriver();
+    
+    RadixSortModedDriver();
     
     return 0;
 }
