@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "AlgoQuestions.h"
+#include "AlgoQuestions2.h"
 using namespace std;
 
 
@@ -598,7 +599,11 @@ int main(int argc, const char * argv[]) {
     
     //FindClosestSumPairDriver();
     
-    FindClosestSumPair2ArraysDriver();
+    //FindClosestSumPair2ArraysDriver();
+    
+    //SubArrayZeroSumDriver();
+   
+    allPermuationDriver();
     
     return 0;
 }

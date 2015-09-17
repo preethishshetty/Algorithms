@@ -666,6 +666,43 @@ void FindClosestSumPair2ArraysDriver()
 }
 
 
+/* Q: Largest subarray with zero sum 
+ 
+ */
+
+void SubArrayZeroSum(int *A,int n)
+{
+    int maxLen=0;
+    
+    for(int i=0;i<n;i++)
+    {
+        int curSum=0;
+        for(int j=i;j<n;j++)
+        {
+            curSum+=A[j];
+            
+            if(curSum==0)
+            {
+                maxLen=max(maxLen,j-i+1);
+            }
+        }
+    }
+
+    cout<<"\nThe Max Length is : "<<maxLen;
+}
+
+void SubArrayZeroSumDriver()
+{
+    int A[]={15,-3,2,1,6,5,-11,15};
+    int n = sizeof(A)/sizeof(A[0]);
+    
+    for(int i=0;i<n;i++)
+        cout<<A[i]<<" ";
+    
+    SubArrayZeroSum(A,n);
+    
+}
+
 
 
 
