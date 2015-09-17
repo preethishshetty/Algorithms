@@ -564,3 +564,108 @@ void RadixSortModedDriver()
 
 }
 
+
+/* Q : Finding sum of 2 numbers in an array closest to X 
+    = Maintain 2 indices L & R and move both ways checking for the minDiff
+ */
+
+void FindClosestSumPair(int *A,int n,int key)
+{
+    int l=0;
+    int r=n-1;
+    int minDiff = INT16_MAX;
+    int left=-1;
+    int right=-1;
+    
+    while(r>l)
+    {
+        if(abs(A[l]+A[r]-key)<minDiff)
+        {
+            minDiff=abs(A[l]+A[r]-key);
+            left=l;
+            right=r;
+        }
+        
+        if(A[l]+A[r]<key)
+            l++;
+        else
+            r--;
+    }
+    
+    cout<<"\nPair Closest to : "<<key<<" is : "<<A[left]<<","<<A[right];
+}
+
+void FindClosestSumPairDriver()
+{
+    int A[] = {2,4,6,7,8,12,25,40,32,56};
+    int size = sizeof(A)/sizeof(A[0]);
+    int key = 39;
+    
+    for(int i=0;i<size;i++)
+        cout<<A[i]<<" ";
+    
+    FindClosestSumPair(A,size,key);
+}
+
+/* Q : Finding sum of 2 numbers in 2 arrays closest to X
+    = Same logic as the above code. Maintain indices of the two arrays
+    or
+    = Merge the two arrays like in merge sort & maintain another array to keep track of the indices
+ */
+
+void FindClosestSumPair2Arrays(int *A,int *B,int n,int m,int key)
+{
+    int l1=0;
+    int r2=m-1;
+    
+    int minDiff = INT16_MAX;
+    int left=-1;
+    int right=-1;
+    
+    while(l1<n && r2>=0)
+    {
+        if(abs(A[l1]+B[r2]-key)<minDiff)
+        {
+            minDiff=abs(A[l1]+B[r2]-key);
+            left=l1;
+            right=r2;
+        }
+        
+        if(A[l1]+B[r2]<key)
+            l1++;
+        else
+            r2--;
+    }
+    
+    cout<<"\nPair Closest to : "<<key<<" is : "<<A[left]<<","<<B[right];
+}
+
+
+void FindClosestSumPair2ArraysDriver()
+{
+    int A[] = {2,4,6,7,8,12,25,40,32,56};
+    int B[] = {1,2,3,4};
+    
+    int size1 = sizeof(A)/sizeof(A[0]);
+    int size2 = sizeof(B)/sizeof(B[0]);
+    
+    int key = 39;
+    
+    cout<<"Key : "<<key<<"\n";
+    
+    for(int i=0;i<size1;i++)
+        cout<<A[i]<<" ";
+    
+    cout<<"\n";
+    
+    for(int i=0;i<size2;i++)
+        cout<<B[i]<<" ";
+    
+    FindClosestSumPair2Arrays(A,B,size1,size2,key);
+    
+}
+
+
+
+
+
