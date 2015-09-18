@@ -603,7 +603,13 @@ int main(int argc, const char * argv[]) {
     
     //SubArrayZeroSumDriver();
    
-    allPermuationDriver();
+    //allPermuationDriver();
+    
+    //findTheLoneWolfDriver();
+    
+    findOddManOutDriver();
+    
+    cout<<"\n\n-EndOfProgram-\n";
     
     return 0;
 }
