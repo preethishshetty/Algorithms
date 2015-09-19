@@ -607,7 +607,15 @@ int main(int argc, const char * argv[]) {
     
     //findTheLoneWolfDriver();
     
-    findOddManOutDriver();
+    //findOddManOutDriver();
+    
+    //isNegative();
+    
+    //countSetBitsDriver();
+    
+    //AddWithoutOperatorDriver();
+    
+    minimumWithoutOperatorDriver();
     
     cout<<"\n\n-EndOfProgram-\n";
     

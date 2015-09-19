@@ -71,9 +71,8 @@ void findTheLoneWolf(int *A,int n)
         {
             if(A[j] & x)
                 sum++;
-        
         }
-        
+
         if(sum%3)
             result=result | x;
     }
@@ -117,4 +116,124 @@ void findOddManOutDriver()
     
     
     findOddManOut(A,size);
+}
+
+void isNegative()
+{
+    int x=-1;
+    int y=100;
+    
+    cout<<"NUMBERS ARE : "<<x<<" "<<y<<"\n";
+    
+    if( (x^y)<0)
+        cout<<"NEGATIVE !";
+    else
+        cout<<"POSITIVE !";
+    
+    //Alternate Method
+    // (x^y)>>32 == 1 -> Negative
+    
+}
+
+
+/* Q : Finding number of set bits from 1->n
+    Time Complexity : O(n*logn)
+*/
+
+int countSetBits(unsigned int num)
+{
+    unsigned int count=0;
+    while(num>0)
+    {
+        if((num & 1)== 1)
+            count++;
+        
+        num=num>>1;
+    }
+    cout<<"\nNumber of set bits : "<<count;
+    
+    return count;
+}
+
+void countSetBitsDriver()
+{
+    int n=6;
+    int sumBits = 0;
+    cout<<"N : "<<n<<"\n";
+    for(int i=1;i<=n;i++)
+       sumBits+=countSetBits(i);
+    
+    cout<<"\n\nNumber of set bits total : "<<sumBits;
+}
+
+
+/* Q : Addition without arithmatic operator 
+ 
+ */
+void AddWithoutOperator(int x,int y)
+{
+    while(y!=0)
+    {
+        int carry = x&y;
+        int sum   = x^y;
+        
+        x=sum;
+        y=carry<<1;
+    }
+
+    cout<<"Sum is : "<<x;
+}
+
+int AddWithoutOperatorRecursive(int x,int y)
+{
+    if(y==0)
+        return x;
+    else
+        return AddWithoutOperatorRecursive(x^y,(x&y)<<1);
+
+}
+
+void AddWithoutOperatorDriver()
+{
+    int x=5;
+    int y=4;
+    
+    cout<<"The numbers are : "<<x<<" "<<y<<"\n";
+    
+    AddWithoutOperator(x,y);
+    
+    cout<<"\nUsing Recursive Function : \nSum is :"<<AddWithoutOperatorRecursive(x,y);
+}
+
+void minimumWithoutOperator(int x,int y)
+{
+    if(!(x/y))
+        cout<<"Min is : "<<x;
+    else
+        cout<<"Min is : :"<<y;
+}
+
+void minimumWithoutOperator(int x,int y,int z)
+{
+    if(!(x/y))
+        if(!(y/z))
+            cout<<"Min is : "<<y;
+        else
+            cout<<"Min is : "<<z;
+    else
+        if(!(x/z))
+            cout<<"Min is : "<<x;
+        else
+            cout<<"Min is : "<<z;
+}
+
+void minimumWithoutOperatorDriver()
+{
+    int x=2;
+    int y=3;
+    int z=1;
+    cout<<"\nMinimum of : "<<x<<" "<<y<<"\n";
+    minimumWithoutOperator(x,y);
+    cout<<"\n\nMinimum of : "<<x<<" "<<y<<" "<<z<<"\n";
+    minimumWithoutOperator(x,y,z);
 }
