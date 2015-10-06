@@ -56,13 +56,13 @@ void InsertEnd(Node *&head,int data)
     temp->next=node;
 }
 
-void InsertFront(Node *&head,int data)
+void InsertFront(Node **head,int data)
 {
     Node *node=new Node();
     node->data=data;
-    node->next=head;
+    node->next=*head;
     
-    head=node;
+    *head=node;
     return;
 }
 
@@ -124,7 +124,8 @@ void LinkedListTestConsole()
     InsertEnd(head,10);
     InsertEnd(head,12);
     
-    InsertFront(head,8);
+    InsertFront(&head,8);
+    InsertFront(&head,6);
     
     InsertKey(head,111);
     InsertKey(head,5);
