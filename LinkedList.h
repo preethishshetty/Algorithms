@@ -258,6 +258,136 @@ void deleteLL(Node **head)
 }
 
 
+void reverseLL(Node **head)
+{
+    Node *cur=*head;
+    Node *prev=NULL;
+    
+    
+    while(cur!=NULL)
+    {
+        Node *t = cur->next;
+        cur->next=prev;
+        prev=cur;
+        cur=t;
+    }
+    
+    *head=prev;
+}
+
+void reverseLLRecursive(Node **head)
+{
+    Node *first=NULL;
+    Node *rest=NULL;
+    
+    if(head==NULL)
+        return;
+    
+    first=*head;
+    rest=first->next;
+    
+    if(rest==NULL)
+        return;
+    
+    reverseLLRecursive(&rest);
+    
+    (first->next)->next=first;
+    first->next=NULL;
+    
+    *head=rest;
+}
+
+
+void LoopInLL(Node *head)
+{
+    Node *slowPtr=head;
+    Node *fastPtr=head;
+    
+    while(slowPtr!=NULL && fastPtr!=NULL && fastPtr->next!=NULL)
+    {
+        slowPtr=slowPtr->next;
+        fastPtr=(fastPtr->next)->next;
+        if(slowPtr==fastPtr)
+        {
+            cout<<"FOUND LOOP!";
+            return;
+        }
+    }
+
+    cout<<"NO Loop Exists!";
+}
+
+bool compare(Node **head1,Node **head2)
+{
+    Node *headA=*head1;
+    Node *headB=*head2;
+    
+    while(headA!=NULL && headB!=NULL)
+    {
+        if(headA->data!=headB->data)
+        {
+            return false;
+        }
+        
+        headA=headA->next;
+        headB=headB->next;
+    }
+    
+    if(headA!=NULL || headB!=NULL)
+        return false;
+    
+    return true;
+}
+
+void Palindrome(Node **head)
+{
+    Node *prevSlowPtr=NULL;
+    Node *slowPtr=*head;
+    Node *fastPtr=*head;
+    Node *mid=NULL;
+    
+    while(fastPtr!=NULL && fastPtr->next!=NULL)
+    {
+        prevSlowPtr=slowPtr;
+        slowPtr=slowPtr->next;
+        fastPtr=(fastPtr->next)->next;
+    }
+    
+    if(fastPtr!=NULL)
+    {
+        mid=slowPtr;
+        slowPtr=slowPtr->next;
+    }
+    
+    prevSlowPtr->next=NULL;
+    Node *secondHalf=slowPtr;
+    reverseLL(&secondHalf);
+
+    bool result = compare(&*head,&secondHalf);
+    if(result)
+        cout<<"TRUE";
+    else
+        cout<<"FALSE";
+    
+    Traverse(*head);
+    Traverse(secondHalf);
+
+    
+    if(mid==NULL)
+    {
+        prevSlowPtr->next=secondHalf;
+    }
+    else
+    {
+        prevSlowPtr->next=mid;
+        mid->next=secondHalf;
+    }
+
+}
+
+
+
+
 void LinkedListTestConsole()
 {
     
@@ -280,7 +410,7 @@ void LinkedListTestConsole()
     Delete(&head,111);
     
     
-    cout<<"\nNumber of nodes : "<<numberOfNode(head);
+    cout<<"\n\nNumber of nodes : "<<numberOfNode(head);
     
     Traverse(head);
     
@@ -292,13 +422,22 @@ void LinkedListTestConsole()
     
     Traverse(head);
     
-    MiddleLL(&head);
+     MiddleLL(&head);
     
-    deleteLL(&head);
-    if(head==NULL)
-        cout<<"EMPTY LINKED LIST!";
-    else
-        cout<<"HEAD : "<<head->data;
+    reverseLLRecursive(&head);
 
+    cout<<"\n\nREVERSING A LINKED LIST : ";
+    Traverse(head);
     
+    
+    reverseLL(&head);
+    
+    //deleteLL(&head);
+    
+    Traverse(head);
+    
+    cout<<"\n\nPalindrome : ";
+    Palindrome(&head);
+    
+    Traverse(head);
 }
