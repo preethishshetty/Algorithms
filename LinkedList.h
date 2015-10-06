@@ -385,7 +385,62 @@ void Palindrome(Node **head)
 
 }
 
+void removeDuplicates(Node **head)
+{
+    Node *cur=*head;
+    cur=cur->next;
+    Node *prev=*head;
+    
+    
+    while(cur!=NULL)
+    {
+        if(prev->data==cur->data)
+        {
+            Node *t=cur;
+            prev->next=cur->next;
+            cur=cur->next;
+            delete(t);
+        }
+        else
+        {
+            prev=cur;
+            cur=cur->next;
+        }
+    }
+}
 
+void pairWiseSwap(Node **head)
+{
+    if(*head==NULL or (*head)->next==NULL)
+        return;
+    
+    Node *prev=NULL;
+    Node *A=*head;
+    Node *B=(*head)->next;
+    
+    
+    while(B!=NULL)
+    {
+        if(prev!=NULL)
+            prev->next=B;
+        else
+            *head=B;
+        
+        A->next=B->next;
+        B->next=A;
+        prev=A;
+        
+        //New Pointers
+        if(A==NULL || A->next==NULL)
+            break;
+        else
+        {
+            A=A->next;
+            B=A->next;
+        }
+    }
+
+}
 
 
 void LinkedListTestConsole()
@@ -394,25 +449,32 @@ void LinkedListTestConsole()
     Node *head=NULL;
     
     InsertEnd(head,10);
+    InsertEnd(head,10);
+    InsertEnd(head,10);
     InsertEnd(head,12);
+    InsertEnd(head,20);
     InsertEnd(head,20);
     InsertEnd(head,25);
     
-    InsertFront(&head,2);
-    InsertFront(&head,8);
+    InsertFront(&head,6);
     InsertFront(&head,6);
     
-    InsertKey(head,111);
-    InsertKey(head,5);
+    InsertFront(&head,2);
+    InsertFront(&head,2);
     
-    Delete(&head,100);
-    Delete(&head,8);
-    Delete(&head,111);
+    Delete(&head,10);
+
+    Traverse(head);
     
-    
-    cout<<"\n\nNumber of nodes : "<<numberOfNode(head);
+    removeDuplicates(&head);
     
     Traverse(head);
+    
+    pairWiseSwap(&head);
+    
+    Traverse(head);
+    
+    cout<<"\n\nNumber of nodes : "<<numberOfNode(head);
     
     swapNodes(&head,12,5);
     
@@ -422,7 +484,7 @@ void LinkedListTestConsole()
     
     Traverse(head);
     
-     MiddleLL(&head);
+    MiddleLL(&head);
     
     reverseLLRecursive(&head);
 
@@ -440,4 +502,5 @@ void LinkedListTestConsole()
     Palindrome(&head);
     
     Traverse(head);
+     
 }
