@@ -281,6 +281,29 @@ void PointerReferenceDriver()
     */
 }
 
+class Test
+{
+private:
+    int x;
+    int y;
+public:
+    Test (int x = 0, int y = 0) { this->x = x; this->y = y; }
+    Test setX(int a) { x = a; return *this; }
+    Test setY(int b) { y = b; return *this; }
+    //void change(Test *t) { *this = t; }   //Object is not assignable
+    void destroy()  { delete this; }
+    void print() { cout << "x = " << x << " y = " << y << endl; }
+};
+
+void thisPointerTestDriver()
+{
+    Test obj1;
+    obj1.setX(10).setY(20);
+    //obj1.destroy();
+    obj1.print();
+}
+
+
 
 /* Important Note on Pointers and reading it :
  
