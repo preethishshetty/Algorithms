@@ -443,6 +443,145 @@ void pairWiseSwap(Node **head)
 }
 
 
+void DeleteAlternative(Node *head)
+{
+    if(head==NULL)
+        return;
+    
+    Node *node=head->next;
+    
+    if(node==NULL)
+        return;
+    
+    head->next=node->next;
+    delete(node);
+    
+    DeleteAlternative(head->next);
+
+}
+
+void MergeSortedArrays(Node *&A, Node *&B)
+{
+    Node *head=new Node();
+    head->data=-999;
+    head->next=NULL;
+    
+    Node *tail = head;
+    
+    
+    while(A!=NULL && B!=NULL)
+    {
+        if(A->data<=B->data)
+        {
+            Node *temp=A;
+            A=A->next;
+            
+            tail->next=temp;
+            tail=temp;
+        }
+        else if (B->data<A->data)
+        {
+            Node *temp=B;
+            B=B->next;
+            
+            tail->next=temp;
+            tail=temp;
+        }
+    }
+    
+    if(A!=NULL)
+        tail->next=A;
+    
+    if(B!=NULL)
+        tail->next=B;
+    
+    
+    Traverse(head->next);
+    A=NULL;
+    B=NULL;
+
+}
+
+Node* MergeSortedArrays2(Node *&A, Node *&B)
+{
+    Node *head=new Node();
+    head->data=-999;
+    head->next=NULL;
+    
+    Node *tail = head;
+    
+    
+    while(A!=NULL && B!=NULL)
+    {
+        if(A->data<=B->data)
+        {
+            Node *temp=A;
+            A=A->next;
+            
+            tail->next=temp;
+            tail=temp;
+        }
+        else if (B->data<A->data)
+        {
+            Node *temp=B;
+            B=B->next;
+            
+            tail->next=temp;
+            tail=temp;
+        }
+    }
+    
+    if(A!=NULL)
+        tail->next=A;
+    
+    if(B!=NULL)
+        tail->next=B;
+    
+    
+    A=NULL;
+    B=NULL;
+    
+    return head->next;
+}
+
+void SplitLinkedList(Node *mainHead,Node *&a, Node *&b)
+{
+    Node *slowPtr=mainHead;
+    Node *fastPtr=mainHead->next;
+    
+    while(fastPtr!=NULL)
+    {
+        fastPtr=fastPtr->next;
+        if(fastPtr!=NULL)
+        {
+            slowPtr=slowPtr->next;
+            fastPtr=fastPtr->next;
+        }
+    }
+    
+    a=mainHead;
+    b=slowPtr->next;
+    slowPtr->next=NULL;
+
+}
+
+void MergeSortDriverFunction(Node **mainHead)
+{
+    Node *head = *mainHead;
+    Node *a=NULL;
+    Node *b=NULL;
+    
+    if(head==NULL || head->next==NULL)
+        return;
+    
+    SplitLinkedList(head,a,b);
+    
+    MergeSortDriverFunction(&a);
+    MergeSortDriverFunction(&b);
+    
+    *mainHead=MergeSortedArrays2(a,b);
+}
+
 void LinkedListTestConsole()
 {
     
@@ -468,39 +607,85 @@ void LinkedListTestConsole()
     
     removeDuplicates(&head);
     
-    Traverse(head);
+    //Traverse(head);
     
-    pairWiseSwap(&head);
+    //pairWiseSwap(&head);
     
-    Traverse(head);
+    //Traverse(head);
     
-    cout<<"\n\nNumber of nodes : "<<numberOfNode(head);
+    //cout<<"\n\nNumber of nodes : "<<numberOfNode(head);
     
-    swapNodes(&head,12,5);
+    //swapNodes(&head,12,5);
     
-    Traverse(head);
+    //Traverse(head);
     
-    DeleteGivenPointer(&head);
+    //DeleteGivenPointer(&head);
     
-    Traverse(head);
+    //Traverse(head);
     
-    MiddleLL(&head);
+    //MiddleLL(&head);
     
-    reverseLLRecursive(&head);
+    //reverseLLRecursive(&head);
 
-    cout<<"\n\nREVERSING A LINKED LIST : ";
-    Traverse(head);
+    //cout<<"\n\nREVERSING A LINKED LIST : ";
+    //Traverse(head);
     
     
-    reverseLL(&head);
+    //reverseLL(&head);
     
     //deleteLL(&head);
     
+    //Traverse(head);
+    
+    //cout<<"\n\nPalindrome : ";
+    //Palindrome(&head);
+    
     Traverse(head);
     
-    cout<<"\n\nPalindrome : ";
-    Palindrome(&head);
     
-    Traverse(head);
-     
+    cout<<"\n\nMERGE TWO SORTED ARRAYS !";
+    
+    
+    Node *headA=NULL;
+    
+    InsertEnd(headA,10);
+    InsertEnd(headA,12);
+    InsertEnd(headA,14);
+    InsertEnd(headA,16);
+    InsertEnd(headA,18);
+    InsertEnd(headA,20);
+    InsertEnd(headA,22);
+    
+    Node *headB=NULL;
+    
+    InsertEnd(headB,5);
+    InsertEnd(headB,11);
+    InsertEnd(headB,14);
+    InsertEnd(headB,15);
+    InsertEnd(headB,17);
+    InsertEnd(headB,21);
+    InsertEnd(headB,23);
+    
+    Traverse(headA);
+    Traverse(headB);
+    
+    MergeSortedArrays(headA,headB);
+    
+    
+    cout<<"\n\nMERGE SORT OF UNSORTED ARRAY";
+    Node *headU=NULL;
+    
+    InsertEnd(headU,5);
+    InsertEnd(headU,1);
+    InsertEnd(headU,4);
+    InsertEnd(headU,3);
+    InsertEnd(headU,12);
+    InsertEnd(headU,2);
+    InsertEnd(headU,8);
+    
+    Traverse(headU);
+    MergeSortDriverFunction(&headU);
+    
+    Traverse(headU);
+    
 }
