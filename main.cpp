@@ -9,6 +9,7 @@
 #include "AlgoQuestions.h"
 #include "AlgoQuestions2.h"
 #include "LinkedList.h"
+#include "Graphs.h"
 using namespace std;
 
 
@@ -622,7 +623,9 @@ int main(int argc, const char * argv[]) {
     
     //thisPointerTestDriver();
     
-    LinkedListTestConsole();
+    //LinkedListTestConsole();
+    
+    GraphTestConsole();
     
     cout<<"\n\n-EndOfProgram-\n";
     
