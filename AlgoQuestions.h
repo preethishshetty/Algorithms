@@ -24,7 +24,7 @@ int findMin(int *array,int left,int right)
     if(right<left)
         return array[0];
     
-    int mid=(left+right)/2;
+    int mid=left+(right-left)/2;
 
     if(mid>left && array[mid]<array[mid-1])
         return array[mid];
@@ -160,9 +160,9 @@ int minSubArray(int *A,int size)
     }
     
     int min=s;
-    int max=e;
+    int max=s;
     
-    for(i=s+1;i<e;i++)
+    for(i=s+1;i<=e;i++)
     {
         if(A[i]<A[min])
             min=i;
@@ -195,7 +195,8 @@ int minSubArray(int *A,int size)
 
 void minSubArrayDriver()
 {
-    int A[]={10,12,20,30,25,40,32,31,35,50,60,70};
+    //int A[]={10,12,20,30,25,40,32,31,35,50,60,70};
+    int A[]={10,12,20,30,20,25,31,32,35,50,60,70};
     cout<<"Elements are : ";
     for(int i=0;i<12;i++)
         cout<<A[i]<<" ";
@@ -205,6 +206,7 @@ void minSubArrayDriver()
 
 
 /* == Divide and Conquer == */
+
 
 /* Q: Power(x,y) 
     Time Complexity : O(logn)

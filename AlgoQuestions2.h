@@ -304,6 +304,70 @@ void thisPointerTestDriver()
 }
 
 
+void fiboNormal(int N)
+{
+    int first=0;
+    int second=1;
+    
+    cout<<"\nFibo Series : ";
+    cout<<first<<" "<<second<<" ";
+    
+    for(int i=2;i<10;i++)
+    {
+        cout<<second+first<<" ";
+        int t=second;
+        second=second+first;
+        first=t;
+    }
+    
+}
+
+int fiboRecursive(int N)
+{
+    if(N==0)
+        return 0;
+    else
+        if(N==1)
+            return 1;
+        else
+            return fiboRecursive(N-1)+fiboRecursive(N-2);
+}
+
+int fiboMemo(int N, int *dict)
+{
+    if(N<=0)
+    {
+        return 0;
+    }
+    else if(N==1)
+        return 1;
+    else
+    {
+        int f=dict[N];
+        if(f==0)
+        {   f=fiboMemo(N-1,dict)+fiboMemo(N-2,dict);
+            dict[N]=f;
+        }
+        return f;
+    }
+    
+    
+}
+
+
+void fibonacchiDriver()
+{
+    fiboNormal(10);
+    
+    cout<<"\nFibo Number : "<<fiboRecursive(6);
+    
+    int dictionary[10];
+    for(int i=0;i<10;i++)
+        dictionary[i]=0;
+    
+    cout<<"\nFibo Number Memoization : "<<fiboMemo(6,dictionary);
+}
+
 
 /* Important Note on Pointers and reading it :
  
