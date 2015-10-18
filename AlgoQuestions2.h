@@ -369,6 +369,78 @@ void fibonacchiDriver()
 }
 
 
+/* Finding Max Profit in scheduling jobs */
+
+struct Job
+ {
+     int deadline;
+     int profit;
+     char id;
+ };
+
+void MaxProfitSequence(Job *job,int N)
+{
+    //sort(job);
+    int result[N];
+    int slot[N];
+    for(int x=0;x<N;x++)
+        slot[x]=-1;
+    
+    for(int i=0;i<N;i++)
+    {
+        for(int j=min(N,job[i].deadline);j>=0;j--)
+        {
+            if(slot[j]==-1)
+            {
+                slot[j]=0;
+                result[j]=i;
+                break;
+            }
+        }
+    }
+
+    for(int k=0;k<N;k++)
+    {
+        cout<<"Time : "<<k<<" :  - JOB ID : "<<result[k];
+    }
+}
+
+/* Currency Problem */
+
+void CurrencyProblem(int Val)
+{
+    int list[] = {1,2,5,10,20,50,100,500,1000};
+    int maxIndex=8;
+    
+    while(Val>0)
+    {
+        for(int i=maxIndex;i>=0;i--)
+            if(list[i]<=Val)
+            {
+                maxIndex=i;
+                break;
+            }
+        
+        cout<<"\nx1 : "<<list[maxIndex];
+        Val=Val-list[maxIndex];
+    }
+
+}
+
+
+void CurrencyProbDriver()
+{
+    cout<<"For 125 : "<<"\n";
+    CurrencyProblem(125);
+    cout<<"\n\nFor 123 : "<<"\n";
+    CurrencyProblem(123);
+    cout<<"\n\nFor 93 : "<<"\n";
+    CurrencyProblem(93);
+
+
+}
+
+
 /* Important Note on Pointers and reading it :
  
  The trick is to read the declaration backwards (right-to-left):

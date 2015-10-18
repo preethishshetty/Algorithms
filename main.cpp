@@ -8,6 +8,7 @@
 #include <iostream>
 #include "AlgoQuestions.h"
 #include "AlgoQuestions2.h"
+#include "DynamicProgramming.h"
 #include "LinkedList.h"
 #include "Graphs.h"
 #
@@ -586,7 +587,7 @@ int main(int argc, const char * argv[]) {
     
     //findFixedPointDriver();
     
-    minSubArrayDriver();
+    //minSubArrayDriver();
     
     //powDriver();
     
@@ -631,6 +632,14 @@ int main(int argc, const char * argv[]) {
     //GraphTestConsole();
     
     //isSubSetSumDriver();
+    
+    //CurrencyProbDriver();
+    
+    //UglyNumberDriver();
+    
+    //LISDriver();
+    
+    LCSDriver();
     
     
     cout<<"\n\n-EndOfProgram-\n";
