@@ -158,7 +158,6 @@ int LCS(char *str1,char *str2,int m,int n)
     return LCS[m][n];
 }
 
-
 void LCSDriver()
 {
     //char str1[]="ABEXKQE";
@@ -168,4 +167,91 @@ void LCSDriver()
     char str2[]="EFGABCD";
     
     cout<<"\nLength of Longest Common Subsequence : "<<LCS(str1,str2,(int)strlen(str1),(int)strlen(str2));
+}
+
+
+int EditProblem(char *str1,char *str2,int m,int n)
+{
+    int DP[m+1][n+1];
+    
+    for(int i=0;i<=m;i++)
+        for(int j=0;j<=n;j++)
+            {
+                if(i==0)
+                    DP[i][j]=j;
+                else
+                    if(j==0)
+                        DP[i][j]=i;
+                else
+                    if(str1[i-1]==str2[j-1])
+                        DP[i][j]=DP[i-1][j-1];
+                else
+                    DP[i][j]=1+ min(min(DP[i][j-1],DP[i-1][j]),DP[i-1][j-1]);
+                
+            }
+    
+    for(int i=0;i<=m;i++)
+    {
+        cout<<"\n";
+        for(int j=0;j<=n;j++)
+            cout<<DP[i][j]<<"\t";
+    }
+
+
+    return DP[m][n];
+}
+
+void EditDriver()
+{
+    char str1[]="ABE";
+    char str2[]="ACE";
+    
+    cout<<"\nNumber of Edits required : "<<EditProblem(str1,str2,(int)strlen(str1),(int)strlen(str2));
+}
+
+
+int count(int *S,int m,int n)
+{
+    int i, j, x, y;
+    // We need n+1 rows as the table is consturcted in bottom up manner using
+    // the base case 0 value case (n = 0)
+    int table[m][n+1];
+    
+    // Fill the enteries for 0 value case (n = 0)
+    for (i=0; i<m; i++)
+        table[i][0] = 1;
+    
+    // Fill rest of the table enteries in bottom up manner
+    for (i = 0; i <m; i++)
+    {
+        for (j = 1; j <=n; j++)
+        {
+            if(j<S[i])
+                x=0;
+            else
+                x=table[i][j-S[i]];
+                           
+            if(i>0)
+                y=table[i-1][j];
+            else
+                y=0;
+                           
+            table[i][j] = x + y;
+        }
+    }
+    
+    for(int i=0;i<m;i++)
+    {cout<<"\n";
+
+        for(int j=0;j<=n;j++)
+            cout<<table[i][j]<<"\t";
+    }
+
+    return table[m-1][n];
+}
+
+void CoinChangeDriver()
+{
+    int A[]={1,2,3};
+    cout<<"Number of ways : "<<count(A,3,4);
 }

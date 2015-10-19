@@ -639,7 +639,11 @@ int main(int argc, const char * argv[]) {
     
     //LISDriver();
     
-    LCSDriver();
+    //LCSDriver();
+    
+    //EditDriver();
+
+    CoinChangeDriver();
     
     
     cout<<"\n\n-EndOfProgram-\n";
