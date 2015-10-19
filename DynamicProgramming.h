@@ -255,3 +255,75 @@ void CoinChangeDriver()
     int A[]={1,2,3};
     cout<<"Number of ways : "<<count(A,3,4);
 }
+
+
+/* Longest Palindromic Subsequence */
+int lpsDP(char* str, int  n)
+{
+    int L[n][n];
+    for(int i=0;i<n;i++)
+        L[i][i]=1;
+    
+    for(int c1=2;c1<=n;c1++)
+    {
+        for(int i=0;i<=n-c1;i++)
+        {
+            int j=i+c1-1;
+            if(str[i]==str[j] && c1==2)
+                L[i][j]=2;
+            else if (str[i]==str[j])
+                L[i][j]=L[i+1][j-1]+2;
+            else
+                L[i][j]=max(L[i][j-1],L[i+1][j]);
+        
+        }
+    }
+    
+    
+    for(int i=0;i<n;i++)
+    {cout<<"\n";
+        
+        for(int j=0;j<n;j++)
+            cout<<L[i][j]<<"\t";
+    }
+
+    
+    return L[0][n-1];
+}
+
+void LPSDriver()
+{
+    char seq[] = "ABAD"; //GEEKSFORGEEKS -5 BBABCBCAB -7 XHAX -3
+    int n = (int)strlen(seq);
+    int res = lpsDP(seq,n);
+    
+    cout<<"\n\nThe length of the LPS is (Memoization) "<<res;
+   
+}
+
+int rodCut(int *price,int n)
+{
+    int val[n+1];
+    val[0]=0;
+    
+    for(int len=1;len<=n;len++)
+    {
+        int maxVal=INT_MIN;
+        for(int j=0;j<len;j++)
+            maxVal=max(maxVal,price[j]+val[len-j-1]);
+        
+        val[len]=maxVal;
+    }
+    
+    return val[n];
+}
+
+void rodCutDriver()
+{
+    int arr[]={1,5,8,9,10,17,17,20};
+    int size=sizeof(arr)/sizeof(arr[0]);
+    
+    int res=rodCut(arr,size);
+    cout<<"Max Val : "<<res;
+
+}

@@ -643,7 +643,11 @@ int main(int argc, const char * argv[]) {
     
     //EditDriver();
 
-    CoinChangeDriver();
+    //CoinChangeDriver();
+    
+    //LPSDriver();
+    
+    rodCutDriver();
     
     
     cout<<"\n\n-EndOfProgram-\n";
