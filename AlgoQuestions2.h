@@ -441,6 +441,79 @@ void CurrencyProbDriver()
 }
 
 
+/* Merging sorted Array N into another sorted Array M+N */
+void MergeMplusN(int *A,int *B,int m,int n)
+{
+    int i=n;
+    int j=0;
+    int k=0;
+    
+    while(i<m && j<n)
+    {
+        if(A[i]<B[j])
+        {
+            A[k]=A[i];
+            A[i]=-1;
+            k++;
+            i++;
+        }
+        else
+        {
+            A[k]=B[j];
+            k++;
+            j++;
+        }
+    }
+    
+    while(j<n)
+    {
+        A[k++]=B[j++];
+    }
+
+}
+
+void moveToEnd(int *A,int size)
+{
+    for(int i=size-1,k=size-1;i>=0;i--)
+    {
+        if(A[i]!=-1)
+        {   A[k]=A[i];
+            k--;
+        }
+    }
+    
+}
+
+void MergeMplusNDriver()
+{
+    int A[]={2,-1,-1,7,-1,-1,10};
+    int B[]={5,8,152,514};
+    
+    int sizeA=sizeof(A)/sizeof(A[0]);
+    int sizeB=sizeof(B)/sizeof(B[0]);
+    
+    cout<<"\nInitial Array: \n";
+    for(int i=0;i<7;i++)
+        cout<<A[i]<<"\t";
+    
+    moveToEnd(A,sizeA);
+    
+    cout<<"\nAfter moving to end : \n";
+    
+    for(int i=0;i<7;i++)
+        cout<<A[i]<<"\t";
+    
+    
+    MergeMplusN(A,B,sizeA,sizeB);
+    
+    cout<<"\n\nResult : \n";
+    for(int i=0;i<7;i++)
+        cout<<A[i]<<"\t";
+
+
+}
+
+
 /* Important Note on Pointers and reading it :
  
  The trick is to read the declaration backwards (right-to-left):
