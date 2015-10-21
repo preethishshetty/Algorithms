@@ -95,23 +95,37 @@ void UglyNumberDriver()
 }
 
 
-int LIS(int *A,int N)
+int LIS(int *A,int N,int &LSum)
 {
     int LIS[N];
+    int LISSum[N];
+    
     for(int i=0;i<N;i++)
-        LIS[i]=1;
+    {   LIS[i]=1;
+        LISSum[i]=A[i];
+    }
     
     for(int i=1;i<N;i++)
         for(int j=0;j<i;j++)
-            if(A[i]>A[j] && LIS[i]<LIS[j]+1)
+        {   if(A[i]>A[j] && LIS[i]<LIS[j]+1)
                 LIS[i]=LIS[j]+1;
+            
+            if(A[i]>A[j] && LISSum[i]<LISSum[j]+A[i])
+                LISSum[i]=LISSum[j]+A[i];
+        }
+    
     
     int max=0;
     for(int i=0;i<N;i++)
+        if(max<LISSum[i])
+            max=LISSum[i];
+    LSum=max;
+    
+    max=0;
+    for(int i=0;i<N;i++)
         if(max<LIS[i])
             max=LIS[i];
-
-
+    
     return max;
 }
 
@@ -119,9 +133,15 @@ int LIS(int *A,int N)
 void LISDriver()
 {
     int A[]={10,12,2,4,5,6,11,13,1,19,25,23,26,30};
-    cout<<"\nLongest Increasing Subsequence Length: "<<LIS(A,sizeof(A)/sizeof(A[0]));
-
+    int LISSum=0;
+    cout<<"\nLongest Increasing Subsequence Length: "<<LIS(A,sizeof(A)/sizeof(A[0]),LISSum);
+    
+    cout<<"\nLongest Increasing Subsequence Sum: "<<LISSum;
+    
 }
+
+
+
 
 int LCS(char *str1,char *str2,int m,int n)
 {
@@ -325,5 +345,38 @@ void rodCutDriver()
     
     int res=rodCut(arr,size);
     cout<<"Max Val : "<<res;
+
+}
+
+
+/* Kadane's Algorithm : Maximum Contiguous Sum */
+
+int maxContSum(int *A,int n)
+{
+    
+    int sum=0,maxSumSoFar=0;
+    
+    for(int i=0;i<n;i++)
+    {
+        sum+=A[i];
+        if(sum<0)
+            sum=0;
+        
+        if(maxSumSoFar<sum)
+            maxSumSoFar=sum;
+    }
+    
+    return maxSumSoFar;
+
+}
+
+void MaxContSumDriver()
+{
+    int A[]={-2,-3,4,-1,-2,1,5,-3};
+    int size=sizeof(A)/sizeof(A[0]);
+    
+    int res=maxContSum(A,size);
+    
+    cout<<"\nMax Contiguous Sum : "<<res;
 
 }
