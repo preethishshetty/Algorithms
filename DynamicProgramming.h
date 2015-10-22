@@ -380,3 +380,364 @@ void MaxContSumDriver()
     cout<<"\nMax Contiguous Sum : "<<res;
 
 }
+
+
+int minSquare(int n)
+{
+    int DP[n+1];
+    DP[0]=0;
+    DP[1]=1;
+    DP[2]=2;
+    DP[3]=3;
+    
+    for(int i=4;i<=n;i++)
+    {
+        DP[i]=i;
+        
+        for(int x=1;x<=i;x++)
+        {
+            int t=x*x;
+            if(t>n)
+                break;
+            
+            DP[i]=min(DP[i],1+DP[i-t]);
+            
+        }
+    
+    }
+
+    return DP[n];
+}
+
+
+void MinSquareDriver()
+{
+    cout<<"Min number of squares : "<<minSquare(6);
+
+}
+
+int minCoinsRecursive(int *A,int m,int V)
+{
+    if(V==0)
+        return 0;
+    
+    int res=INT_MAX;
+    
+    for(int i=0;i<m;i++)
+    {
+        if(A[i]<=V){
+            res=min(res,1+minCoinsRecursive(A,m,V-A[i]));
+        }
+    }
+
+    return res;
+}
+
+int minCoinsIterative(int *A,int m,int V)
+{
+    if(V==0)
+        return 0;
+    
+    int dp[V+1];
+    dp[0]=0;
+    
+    for(int i=1;i<=V;i++)
+        dp[i]=INT_MAX;
+    
+    for(int i=1;i<=V;i++)
+    {
+        for(int j=0;j<m;j++)
+        {
+            if(A[j]<=i)
+            {
+                dp[i]=min(dp[i],1+dp[i-A[j]]);
+                
+            }
+        
+        }
+    
+    }
+    
+    return dp[V];
+}
+
+void minCoinDriver()
+{
+    int A[]={9,6,5,1};
+    int m=sizeof(A)/sizeof(A[0]);
+    
+    int V=11;
+    
+    cout<<"Minimum Coins : "<<minCoinsRecursive(A,m,V);
+    
+    cout<<"\n\nMinimum Coins : "<<minCoinsIterative(A,m,V);
+    
+}
+
+
+int maxLenPalindromeSubstring(char *str,int n)
+{
+    bool dp[n][n];
+    int maxLen=1;
+    
+    for(int i=0;i<n;i++)
+        dp[i][i]=true;
+    
+    for(int c=2;c<=n;c++)
+    {
+        for(int i=0;i<n-c+1;i++)
+        {
+            int j=i+c-1;
+            
+            if(str[i]==str[j] && c==2)
+            {
+                maxLen=2;
+                dp[i][j]=true;
+                continue;
+            }
+            
+            if(str[i]==str[j] && dp[i+1][j-1])  // Next character with lower length (traceback)
+            {
+                dp[i][j]=true;
+                if(maxLen<c)
+                    maxLen=c;
+                
+                continue;
+            }
+        }
+    }
+    
+    
+    return maxLen;
+}
+
+
+void maxLenPalindromeSubstringDriver()
+{
+    char *str="abcbad";
+    int size=(int)strlen(str);
+    
+    cout<<"\nMax Len of Substring : "<<maxLenPalindromeSubstring(str,size);
+
+}
+
+
+int maxLenPalindromeSubsequence(char *str,int n)
+{
+    int dp[n][n];
+    for(int i=0;i<n;i++)
+        dp[i][i]=1;
+    
+    for(int c=2;c<=n;c++)
+    {
+        for(int i=0;i<n-c+1;i++)
+        {
+            int j=i+c-1;
+            
+            if(str[i]==str[j] && c==2)
+                dp[i][j]=2;
+            else
+                if(str[i]==str[j])
+                    dp[i][j]=2+dp[i+1][j-1];
+            else
+                dp[i][j]=max(dp[i+1][j],dp[i][j-1]);
+            
+        }
+    }
+    
+    return dp[0][n-1];
+
+}
+
+
+
+void maxLenPalindromeSubsequnceDriver()
+{
+    char str[]="dxxdabcbadzzd";
+    int size=(int)strlen(str);
+    
+    cout<<"\nMax Len of Palindrome Subsequence : "<<maxLenPalindromeSubsequence(str,size);
+}
+
+int * arrayCopy(int const *A,int len)
+{
+    int *t = (int*)malloc(len*sizeof(int));
+    memcpy(t,A,len*sizeof(int));
+    return t;
+}
+
+
+void anagramInString(char *str1,char *str2)
+{
+    int m=(int)strlen(str1);
+    int n=(int)strlen(str2);
+    
+    int mainletterCount[256]={0};
+    for(int i=0;i<m;i++)
+        mainletterCount[str1[i]]+=1;
+    
+    for(int i=0;i<n-m+1;i++)
+    {
+        int *letterCount=arrayCopy(mainletterCount,256);
+        
+        if(letterCount[str2[i]]>0)
+        {   int j=0;
+            
+            for(;j<m;j++)
+            {
+                letterCount[str2[i+j]]-=1;
+                if(letterCount[str2[i+j]]<0)
+                    break;
+            }
+            
+            if(j==m)
+                cout<<"\nAnagram matches !";
+        }
+        
+        delete [] letterCount;
+    }
+}
+
+int compareArray(int *A,int *B)
+{
+    for(int i=0;i<256;i++)
+        if(A[i]!=B[i])
+            return 0;
+    
+    return 1;
+}
+
+void anagramInStringOptimized(char *str1,char *str2)
+{
+    int n=(int)strlen(str1);
+    int m=(int)strlen(str2);
+    
+    int aPattern[256]={0};
+    int aWindow[256]={0};
+    
+    for(int i=0;i<m;i++)
+    {
+        aPattern[str2[i]]++;
+        aWindow[str1[i]]++;
+    }
+    
+    for(int i=m;i<n;i++)
+    {
+        if(compareArray(aPattern,aWindow))
+            cout<<"\nFound Anagram at : "<<i-m;
+        
+        aWindow[str1[i]]++;
+        aWindow[str1[i-m]]--;
+        
+    }
+    
+    if(compareArray(aPattern,aWindow))
+        cout<<"\nFound Anagram at : "<<n-m;
+
+}
+
+
+void anagramInStringDriver()
+{
+    char str1[]="abc";
+    char str2[]="dacbecaeabc";
+    
+    anagramInString(str1,str2);
+    
+    cout<<"\nAnagram in String Optimized : ";
+    anagramInStringOptimized(str2, str1);
+    
+}
+
+
+void computeLPSArray(char *pat,int M,int *lps)
+{
+    int len=0;
+    int i;
+    
+    lps[0]=0;
+    i=1;
+    
+    while(i<M)
+    {
+        if(pat[i]==pat[len])
+        {
+            len++;
+            lps[i]=len;
+            i++;
+        }
+        else
+        {
+            if(len!=0)
+            {
+                len=lps[len-1];
+            }
+            else
+            {
+                lps[i]=0;
+                i++;
+            }
+        }
+    }
+
+}
+
+void KMP(char *txt,char *pat)
+{
+    int N=(int)strlen(txt);
+    int M=(int)strlen(pat);
+    int lps[M];
+    
+    computeLPSArray(pat,M,lps);
+
+    cout<<"\nLPS Array : ";
+    for(int i=0;i<M;i++)
+        cout<<lps[i]<<" ";
+    
+    int i=0;int j=0;
+    
+    while(i<N)
+    {
+        if(pat[j]==txt[i])
+        {
+            i++;
+            j++;
+        }
+        
+        if(j==M)
+        {
+            cout<<"\nFOUND at "<<i-j<<"!!!";
+            j=lps[j-1];
+            
+        }
+        
+        if(txt[i]!=pat[j] && i<N)
+        {
+            if(j!=0)
+            {
+                j=lps[j-1];
+            }
+            else
+            {
+                i++;
+            }
+        }
+    }
+
+}
+
+void KMPDriver()
+{
+    char str1[]="AABAACAABAA";
+    char str2[]="AABA";
+    
+    KMP(str1,str2);
+    
+}
+
+
+
+
+
+
+

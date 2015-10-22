@@ -651,7 +651,22 @@ int main(int argc, const char * argv[]) {
     
     //MergeMplusNDriver();
     
-    MaxContSumDriver();
+    //MaxContSumDriver();
+    
+    //MinSquareDriver();
+    
+    //minCoinDriver();
+    
+    //maxLenPalindromeSubstringDriver();
+    
+    //maxLenPalindromeSubsequnceDriver();
+    
+    //anagramInStringDriver();
+    
+    //KMPDriver();
+    
+    nStairProblemDriver();
+    
     
     cout<<"\n\n-EndOfProgram-\n";
     
