@@ -737,7 +737,28 @@ void KMPDriver()
 
 
 
+void nStairProblemDriver()
+{
+    int n=6;
+    int m=3;
+    
+    int res[n];
+    res[0]=0;
+    res[1]=1;
+    
+    for(int i=2;i<=n;i++)
+    {
+        res[i]=0;
+        for(int j=1;j<=i && j<=m;j++)
+        {
+            res[i]+=res[i-j];
+        }
+    
+    }
+    
+    cout<<"\nNumber of ways to get to step : "<<n<<" using : "<<m<<" possible jumps "<<res[n-1];
 
+}
 
 
 

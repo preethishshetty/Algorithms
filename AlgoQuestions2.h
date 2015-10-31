@@ -65,7 +65,7 @@ void findTheLoneWolf(int *A,int n)
     for(int i=0;i<32;i++)
     {
         sum=0;
-        x=1>>i;
+        x=1<<i;
         
         for(int j=0;j<n;j++)
         {
@@ -510,6 +510,203 @@ void MergeMplusNDriver()
     for(int i=0;i<7;i++)
         cout<<A[i]<<"\t";
 
+
+}
+
+
+void uniqueString(char *str)
+{
+    bool charSet[256]={false};
+    
+    for(int i=0;i<strlen(str);i++)
+    {    if(charSet[str[i]]==true)
+        {
+            cout<<"Duplicate Found!";
+            return;
+        }
+        else
+            charSet[str[i]]=true;
+    }
+    
+    cout<<"\nNO Duplicates here!";
+    return;
+}
+
+void uniqueStringDriver()
+{
+    char str[]="abcdefg";
+    
+    uniqueString(str);
+
+}
+
+int charCountFunc(int charCount)
+{
+    int count=0;
+    if(charCount==0)
+        count++;
+    else
+        while(charCount>0)
+        {
+            count+=1;
+            charCount/=10;
+        }
+
+
+    return count;
+}
+
+int findNewStrLen(char *str)
+{
+    if(strlen(str)==0)
+        return 0;
+    
+    char lastSeen=str[0];
+    int count=0;
+    int charCount=0;
+    
+    for(int i=0;i<strlen(str);i++)
+    {
+        if(str[i]!=lastSeen)
+        {
+            lastSeen=str[i];
+            count++;
+            count+=charCountFunc(charCount);
+        }
+        else
+        {
+            charCount++;
+        }
+    }
+    
+    count++;
+    
+    
+    return count;
+}
+
+void stringConcat(char *str)
+{
+    
+    //Code to find the count of new string :
+    int newStrLen=findNewStrLen(str);
+    
+    if(newStrLen>strlen(str))
+    {
+        cout<<"String  : "<<str;
+        return;
+    }
+    else
+    {
+
+        cout<<"Count : "<<newStrLen;
+    
+        char A[newStrLen];
+        char numSequence[newStrLen];
+        
+        int i=0,j=0,k=0,l=0;
+        int flag=0;
+        
+        while(flag==0)
+        {
+            while(str[j]==str[i])
+                j++;
+            
+            //Handling Length of String
+            int charCount=j-i;
+            if(charCount>10)
+            {   while(charCount>0)
+                {
+                    numSequence[l++]=(charCount%10)+48;
+                    charCount/=10;
+                }
+                numSequence[l]='\0';
+            }
+            
+            
+            //Adding to newString A
+            A[k++]=str[i];
+            if((j-i)>10)
+            {
+                charCount=strlen(numSequence)-1;
+                while(charCount>=0)
+                    A[k++]=numSequence[charCount--];
+            }
+            else
+                A[k++]=(j-i)+48;
+
+            i=j;
+            
+            
+            if(str[i]=='\0')
+            {   flag++;
+                A[k]=str[i];
+            }
+    
+        }
+        
+        
+        cout<<"\nNew String  : "<<A;
+        
+    }
+     
+  
+}
+
+
+
+void stringConcatDriver()
+{
+    char str[]="aabcccccccccccccccdde";
+    stringConcat(str);
+
+}
+
+void rotateMatrix(int mat[][4])
+{
+    for(int i=0;i<4;i++)
+    {
+        for(int j=0;j<4;j++)
+            cout<<mat[i][j]<<"\t";
+        cout<<"\n";
+    }
+    
+    cout<<"\n\n";
+    
+    for(int layer=0;layer<4/2;layer++)
+    {
+        int first=layer;
+        int last=4-1-first;
+        
+        for(int i=first;i<last;i++)
+        {
+            int top=mat[first][i];
+            
+            mat[first][i]=mat[last-i][first];
+            
+            mat[last-i][first]=mat[last][last-i];
+            
+            mat[last][last-i]=mat[i][last];
+
+            mat[i][last]=top;
+            
+        }
+    
+    }
+
+    for(int i=0;i<4;i++)
+    {
+        for(int j=0;j<4;j++)
+            cout<<mat[i][j]<<"\t";
+        cout<<"\n";
+    }
+}
+
+void rotateMatrixDriver()
+{
+    int mat[4][4]={{0,1,2,100},{3,4,5,200},{6,7,8,300},{9,10,11,400}};
+    
+    rotateMatrix(mat);
 
 }
 

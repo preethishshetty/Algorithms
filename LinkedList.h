@@ -582,6 +582,46 @@ void MergeSortDriverFunction(Node **mainHead)
     *mainHead=MergeSortedArrays2(a,b);
 }
 
+
+void DeleteNodeBasedOnKey(Node **head,int key)
+{
+    while(*head!=NULL && (*head)->data==key )
+    {
+        Node *temp=*head;
+        (*head)=(*head)->next;
+        
+        delete temp;
+    
+    }
+    
+    if(*head==NULL)
+        return;
+    
+    Node *cur=(*head)->next;
+    Node *prev=(*head);
+    
+    while(cur!=NULL)
+    {
+    
+        if(cur->data==key)
+        {
+            Node *temp=cur;
+            prev->next=cur->next;
+            cur=cur->next;
+            
+            delete temp;
+        }
+        else
+        {
+            prev=cur;
+            cur=cur->next;
+        }
+    }
+    
+}
+
+
+
 void LinkedListTestConsole()
 {
     
@@ -605,7 +645,7 @@ void LinkedListTestConsole()
 
     Traverse(head);
     
-    removeDuplicates(&head);
+    //removeDuplicates(&head);
     
     //Traverse(head);
     
@@ -640,9 +680,18 @@ void LinkedListTestConsole()
     //cout<<"\n\nPalindrome : ";
     //Palindrome(&head);
     
+    cout<<"\nDeleting Nodes : ";
+    DeleteNodeBasedOnKey(&head,6);
+    DeleteNodeBasedOnKey(&head,12);
+    DeleteNodeBasedOnKey(&head,25);
+    DeleteNodeBasedOnKey(&head,20);
+    DeleteNodeBasedOnKey(&head,2);
+    DeleteNodeBasedOnKey(&head,10);
+    
+    
     Traverse(head);
     
-    
+    /*
     cout<<"\n\nMERGE TWO SORTED ARRAYS !";
     
     
@@ -687,5 +736,7 @@ void LinkedListTestConsole()
     MergeSortDriverFunction(&headU);
     
     Traverse(headU);
+     
+    */
     
 }

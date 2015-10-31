@@ -625,7 +625,7 @@ int main(int argc, const char * argv[]) {
     
     //thisPointerTestDriver();
     
-    //LinkedListTestConsole();
+    LinkedListTestConsole();
     
     //fibonacchiDriver();
     
@@ -665,8 +665,14 @@ int main(int argc, const char * argv[]) {
     
     //KMPDriver();
     
-    nStairProblemDriver();
+    //nStairProblemDriver();
     
+    //uniqueStringDriver();
+    
+    
+    //stringConcatDriver();
+    
+    //rotateMatrixDriver();
     
     cout<<"\n\n-EndOfProgram-\n";
     
